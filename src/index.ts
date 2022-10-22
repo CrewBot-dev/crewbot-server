@@ -1,5 +1,6 @@
 import express = require('express');
 import { readdirSync } from 'fs';
+import { Config } from './config';
 import logger from './logger';
 import { Route, RouteHandler } from './types';
 
@@ -47,4 +48,6 @@ for (const routeFile of routeFiles) {
   }
 }
 
-app.listen(3000, () => logger.info('Server is running.'));
+app.listen(Config.listenPort, () => logger.info('Server is running.'));
+
+logger.debug(Config);

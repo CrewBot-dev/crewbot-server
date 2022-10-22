@@ -1,5 +1,5 @@
-import { pino } from 'pino';
+import { Logger, pino } from 'pino';
 
-const logger = pino();
+const logger: Logger = pino();
 
 export default logger;
