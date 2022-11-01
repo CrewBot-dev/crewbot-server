@@ -1,5 +1,6 @@
 import express = require('express');
 import { readdirSync } from 'fs';
+import path = require('path');
 import { Config } from './config';
 import logger from './logger';
 import { Route, RouteHandler } from './types';
@@ -12,10 +13,7 @@ const wrapWithErrorHandler = (handler: RouteHandler): RouteHandler => {
     try {
       return handler(req, res);
     } catch (e) {
-      const error = e as Error;
-
-      logger.error(error.message);
-
+      logger.error((e as Error).message);
       res.sendStatus(500);
     }
   };
@@ -23,10 +21,11 @@ const wrapWithErrorHandler = (handler: RouteHandler): RouteHandler => {
   return curry;
 };
 
-const routeFiles = readdirSync('./src/routes')
+// __dirname + routes = path to routes directory independent of cwd or build/not-build
+const routeFiles = readdirSync(path.join(__dirname, 'routes'))
   .filter((path) => path.endsWith('.ts') || path.endsWith('.js'))
   .map((path) => path.slice(0, -3)) // remove extension
-  .map((path) => './routes/' + path); // add relative directory
+  .map((path) => './routes/' + path); // imports are relative
 
 for (const routeFile of routeFiles) {
   const { route } = require(routeFile) as { route: Route };
