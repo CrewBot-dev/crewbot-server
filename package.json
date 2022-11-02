@@ -7,7 +7,7 @@
   "license": "BSD+Patent",
   "private": true,
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only --poll ./src/index.ts | pino-pretty --translateTime \"HH:MM:ss\" --ignore pid,hostname",
+    "dev": "ts-node-dev --respawn --transpile-only --poll ./src/index.ts | pino-pretty --ignore pid,hostname",
     "build": "tsc --outDir ./build",
     "start": "node ./build/index.js"
   },
