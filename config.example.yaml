@@ -1,0 +1,2 @@
+environment: 'development' # Either 'development' or 'production'
+listenPort: 3000 # What port should the server listen on?

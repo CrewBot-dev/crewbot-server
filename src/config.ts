@@ -1,24 +1,15 @@
 import { readFileSync } from 'fs';
-import json5 = require('json5');
-import logger from './logger';
+import yaml = require('yaml');
 
 type ConfigType = {
   listenPort: number;
   environment: 'production' | 'development';
 };
 
-/**
- * Reads a config file from disk.
- * @param path the path to read config from
- * @returns a Config
- */
-const loadConfig = (path: string) => {
-  const fileContents = readFileSync(path).toString('utf-8');
-  const loadedConfig = json5.parse<ConfigType>(fileContents);
+export const Config: Readonly<ConfigType> = (() => {
+  const fileContents = readFileSync('./config.yaml').toString('utf-8');
+  const configObject = yaml.parse(fileContents) as ConfigType;
 
-  logger.level = loadedConfig.environment === 'development' ? 'debug' : 'info';
-
-  return loadedConfig;
-};
-
-export const Config = loadConfig('./config.json5');
+  // Config should be immutable.
+  return Object.freeze(configObject);
+})();

@@ -1,7 +1,0 @@
-{
-  // 'development' or 'production'
-  environment: 'development',
-
-  // pretty much any number
-  listenPort: 3000,
-}

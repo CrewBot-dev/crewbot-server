@@ -1,16 +1,17 @@
+import { dbGet, dbHasKey } from '../database';
 import { Game, Route } from '../types';
 
 const getGameRoute: Route = {
   endpoint: '/games/:gameId',
   method: 'GET',
   handler: (req, res) => {
-    // TODO: this should come from the datastore instead lol
-    const tempGame: Game = {
-      id: req.params['gameId'].toString(),
-      created: Date.now(),
-    };
+    const { gameId } = req.params;
 
-    res.send(tempGame);
+    if (!dbHasKey(gameId)) {
+      return res.sendStatus(404);
+    } else {
+      return res.send(dbGet(gameId) as Game);
+    }
   },
 };
 

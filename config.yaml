@@ -1,0 +1,2 @@
+environment: 'development'
+listenPort: 3000
