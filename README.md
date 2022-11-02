@@ -4,7 +4,7 @@ Backend server that powers CrewBot experiences across platforms.
 
 ## Configuration
 
-Create a copy of `config.example.json5` named `config.json5` and populate the values as needed.. **Do not commit this file to version control.**
+Create a copy of `config.example.yaml` named `config.yaml` and populate the values as needed.. **Do not commit this file to version control.**
 
 ### Values
 
